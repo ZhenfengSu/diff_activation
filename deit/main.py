@@ -28,7 +28,20 @@ import models_v2
 
 import utils
 
-
+def swap_special_id_activation(model, target_id, current=""):
+    """
+    Public API for replacing nn.Linear with SemiSparseLinear
+    """
+    name_to_child = dict(model.named_children())
+    for name, child in name_to_child.items():
+        fqn = f"{current}.{name}" if current else name
+        if isinstance(child, torch.nn.GLEU) and target_id in fqn:
+            setattr(model, name, torch.nn.Identity())
+            del child
+        else:
+            swap_special_id_activation(child, target_id, current=fqn)
+            
+            
 def get_args_parser():
     parser = argparse.ArgumentParser('DeiT training and evaluation script', add_help=False)
     parser.add_argument('--batch-size', default=64, type=int)
@@ -185,6 +198,7 @@ def get_args_parser():
     parser.add_argument('--world_size', default=1, type=int,
                         help='number of distributed processes')
     parser.add_argument('--dist_url', default='env://', help='url used to set up distributed training')
+    arser.add_argument('--target_id',type=str,default='0', help='url used to set up distributed training')
     return parser
 
 
@@ -306,6 +320,22 @@ def main(args):
         checkpoint_model['pos_embed'] = new_pos_embed
 
         model.load_state_dict(checkpoint_model, strict=False)
+    # eval
+    output_dir = Path(args.output_dir)
+    # swap
+    swap_special_id_activation(model,args.target_id)
+    # eval swap model
+    if args.eval:
+        test_stats = evaluate(data_loader_val, model, device)
+        print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
+        log_stats = {**{f'test_{k}': v for k, v in test_stats.items()},
+                     'models': str(args.model)+'_without_activation'+args.target_id,}
+        model_name = str(args.model)+'_without_activation'+args.target_id
+        if args.output_dir and utils.is_main_process():
+            with (output_dir / "log.txt").open("a") as f:
+                f.write(json.dumps(log_stats) + "\n")
+                print(f"Accuracy of the {model_name} on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
+        return
         
     if args.attn_only:
         for name_p,p in model.named_parameters():
@@ -392,7 +422,7 @@ def main(args):
         criterion, teacher_model, args.distillation_type, args.distillation_alpha, args.distillation_tau
     )
 
-    output_dir = Path(args.output_dir)
+    
     if args.resume:
         if args.resume.startswith('https'):
             checkpoint = torch.hub.load_state_dict_from_url(
@@ -409,10 +439,7 @@ def main(args):
             if 'scaler' in checkpoint:
                 loss_scaler.load_state_dict(checkpoint['scaler'])
         lr_scheduler.step(args.start_epoch)
-    if args.eval:
-        test_stats = evaluate(data_loader_val, model, device)
-        print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
-        return
+
 
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
