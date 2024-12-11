@@ -3,7 +3,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-with open("log.txt") as f:
+with open("log_tiny.txt") as f:
     lines = f.readlines()
     name = None
     acc = None
@@ -11,7 +11,7 @@ with open("log.txt") as f:
     for line in lines:
         if "test_acc1" in line:
             acc = float(line[line.index("test_acc1")+12+1:line.index(', "test_acc5":')])
-            acc_list.append(acc*100)
+            acc_list.append(acc)
         else:
             if name is not None and acc is not None:
                 print(name, acc)
@@ -25,5 +25,7 @@ plt.ylabel("acc")
 plt.axhline(y=72.2, color='r', linestyle='--', label="baseline")
 # 设置y轴范围
 plt.ylim(0, 100)
+# 设置title
+plt.title("acc with remove layer in deit tiny")
 plt.legend()
 plt.savefig("remove_acc_tiny.png")

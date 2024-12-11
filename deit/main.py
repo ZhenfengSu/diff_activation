@@ -45,7 +45,7 @@ def swap_special_id_activation(model, target_id, current=""):
             
 def get_args_parser():
     parser = argparse.ArgumentParser('DeiT training and evaluation script', add_help=False)
-    parser.add_argument('--batch-size', default=1024, type=int)
+    parser.add_argument('--batch-size', default=512, type=int)
     parser.add_argument('--epochs', default=300, type=int)
     parser.add_argument('--bce-loss', action='store_true')
     parser.add_argument('--unscale-lr', action='store_true')

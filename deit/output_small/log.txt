@@ -1,0 +1,25 @@
+remove:blocks.0
+{"test_loss": 6.984266165531043, "test_acc1": 0.0800000047302246, "test_acc5": 0.502000018157959, "models": "deit_small_patch16_224_without_activation0"}
+remove:blocks.1
+{"test_loss": 6.984272899049701, "test_acc1": 0.07200000411987305, "test_acc5": 0.3880000134277344, "models": "deit_small_patch16_224_without_activation1"}
+remove:blocks.2
+{"test_loss": 6.984059073708274, "test_acc1": 0.13800000274658203, "test_acc5": 0.49600001998901366, "models": "deit_small_patch16_224_without_activation2"}
+remove:blocks.3
+{"test_loss": 6.986910393743804, "test_acc1": 0.10200000457763672, "test_acc5": 0.49800001373291014, "models": "deit_small_patch16_224_without_activation3"}
+remove:blocks.4
+{"test_loss": 6.9871915976206465, "test_acc1": 0.10600000350952149, "test_acc5": 0.5340000205993652, "models": "deit_small_patch16_224_without_activation4"}
+remove:blocks.5
+{"test_loss": 6.990113923043916, "test_acc1": 0.09800000518798828, "test_acc5": 0.5100000169372558, "models": "deit_small_patch16_224_without_activation5"}
+remove:blocks.6
+{"test_loss": 6.986623171604041, "test_acc1": 0.08400000411987305, "test_acc5": 0.5180000161743165, "models": "deit_small_patch16_224_without_activation6"}
+remove:blocks.7
+{"test_loss": 6.9883630564718535, "test_acc1": 0.10800000411987305, "test_acc5": 0.5360000216674805, "models": "deit_small_patch16_224_without_activation7"}
+remove:blocks.8
+{"test_loss": 6.989134969133319, "test_acc1": 0.12400000534057617, "test_acc5": 0.5340000173950196, "models": "deit_small_patch16_224_without_activation8"}
+remove:blocks.9
+{"test_loss": 6.985572916088683, "test_acc1": 0.09000000503540038, "test_acc5": 0.5520000128173829, "models": "deit_small_patch16_224_without_activation9"}
+remove:blocks.10
+{"test_loss": 6.9868872774310855, "test_acc1": 0.10200000457763672, "test_acc5": 0.4600000190734863, "models": "deit_small_patch16_224_without_activation10"}
+remove:blocks.11
+{"test_loss": 6.986862088694717, "test_acc1": 0.09800000381469727, "test_acc5": 0.5140000231933594, "models": "deit_small_patch16_224_without_activation11"}
+
