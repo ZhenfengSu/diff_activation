@@ -1,0 +1,24 @@
+remove:blocks.0
+{"test_loss": 6.9424755790016865, "test_acc1": 0.1340000047302246, "test_acc5": 0.5520000173950196, "models": "deit_tiny_patch16_224_without_activation0"}
+remove:blocks.1
+{"test_loss": 6.941505952314897, "test_acc1": 0.09000000576496124, "test_acc5": 0.5400000188827515, "models": "deit_tiny_patch16_224_without_activation1"}
+remove:blocks.2
+{"test_loss": 6.943405440359404, "test_acc1": 0.0840000050354004, "test_acc5": 0.4520000146150589, "models": "deit_tiny_patch16_224_without_activation2"}
+remove:blocks.3
+{"test_loss": 6.941501646330862, "test_acc1": 0.07400000350952149, "test_acc5": 0.47800001121520996, "models": "deit_tiny_patch16_224_without_activation3"}
+remove:blocks.4
+{"test_loss": 6.94101755546801, "test_acc1": 0.10800000301837921, "test_acc5": 0.5080000186920166, "models": "deit_tiny_patch16_224_without_activation4"}
+remove:blocks.5
+{"test_loss": 6.942928198612098, "test_acc1": 0.11200000503540039, "test_acc5": 0.5080000135040283, "models": "deit_tiny_patch16_224_without_activation5"}
+remove:blocks.6
+{"test_loss": 6.941770221247817, "test_acc1": 0.09200000305175782, "test_acc5": 0.46000001594543455, "models": "deit_tiny_patch16_224_without_activation6"}
+remove:blocks.7
+{"test_loss": 6.9425882426175205, "test_acc1": 0.06800000213623048, "test_acc5": 0.446000013961792, "models": "deit_tiny_patch16_224_without_activation7"}
+remove:blocks.8
+{"test_loss": 6.942229429880778, "test_acc1": 0.08600000271320343, "test_acc5": 0.4360000122833252, "models": "deit_tiny_patch16_224_without_activation8"}
+remove:blocks.9
+{"test_loss": 6.940896077589556, "test_acc1": 0.09000000210285186, "test_acc5": 0.48800001335144044, "models": "deit_tiny_patch16_224_without_activation9"}
+remove:blocks.10
+{"test_loss": 6.941507960810806, "test_acc1": 0.10800000520706177, "test_acc5": 0.5260000138092041, "models": "deit_tiny_patch16_224_without_activation10"}
+remove:blocks.11
+{"test_loss": 6.942240975119851, "test_acc1": 0.08800000242233276, "test_acc5": 0.49400001846313474, "models": "deit_tiny_patch16_224_without_activation11"}

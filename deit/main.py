@@ -35,7 +35,8 @@ def swap_special_id_activation(model, target_id, current=""):
     name_to_child = dict(model.named_children())
     for name, child in name_to_child.items():
         fqn = f"{current}.{name}" if current else name
-        if isinstance(child, torch.nn.GLEU) and target_id in fqn:
+        if isinstance(child, torch.nn.GELU) and target_id in fqn:
+            print(fqn)
             setattr(model, name, torch.nn.Identity())
             del child
         else:
@@ -44,7 +45,7 @@ def swap_special_id_activation(model, target_id, current=""):
             
 def get_args_parser():
     parser = argparse.ArgumentParser('DeiT training and evaluation script', add_help=False)
-    parser.add_argument('--batch-size', default=64, type=int)
+    parser.add_argument('--batch-size', default=1024, type=int)
     parser.add_argument('--epochs', default=300, type=int)
     parser.add_argument('--bce-loss', action='store_true')
     parser.add_argument('--unscale-lr', action='store_true')
@@ -198,7 +199,7 @@ def get_args_parser():
     parser.add_argument('--world_size', default=1, type=int,
                         help='number of distributed processes')
     parser.add_argument('--dist_url', default='env://', help='url used to set up distributed training')
-    arser.add_argument('--target_id',type=str,default='0', help='url used to set up distributed training')
+    parser.add_argument('--target_id',type=str,default='0', help='url used to set up distributed training')
     return parser
 
 
@@ -323,9 +324,11 @@ def main(args):
     # eval
     output_dir = Path(args.output_dir)
     # swap
-    swap_special_id_activation(model,args.target_id)
+    target_id = 'blocks.'+ args.target_id
+    swap_special_id_activation(model,target_id)
     # eval swap model
     if args.eval:
+        model = model.half().to(device)
         test_stats = evaluate(data_loader_val, model, device)
         print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
         log_stats = {**{f'test_{k}': v for k, v in test_stats.items()},
@@ -333,6 +336,7 @@ def main(args):
         model_name = str(args.model)+'_without_activation'+args.target_id
         if args.output_dir and utils.is_main_process():
             with (output_dir / "log.txt").open("a") as f:
+                f.write("remove:"+target_id + "\n")
                 f.write(json.dumps(log_stats) + "\n")
                 print(f"Accuracy of the {model_name} on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
         return
